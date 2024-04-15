@@ -4,11 +4,11 @@ import queue
 import time
 import memory_profiler
 import matplotlib.pyplot as plt
+from data import STATE
+import tkinter as tk
+from game import SolutionVisualizer
 
-# Shikaku Problem BRF :
-# Author: Anibal Picazo Quintana
-# Course: EARIN 18Z
-
+Astar_state = []
 class state:
     def __init__(self, value, ind, matrix, piece, neigh=0, dim=1):
         self.ind = ind
@@ -136,7 +136,8 @@ class Shikaku:
             current = p[1]
             openList.pop(index)
             closedList.append(current)
-
+            print(current.matrix)
+            Astar_state.append(current)
             if (current.isSolution()):
                 goal = current
 
@@ -160,53 +161,8 @@ class Shikaku:
 
         return goal, nodes
 
-"""""
-#m1 = np.array([[0, 6, 0, 0, 0, 3, 0],
-#               [0, 0, 0, 0, 0, 2, 0],
-#               [0, 2, 0, 3, 0, 2, 0],
-#               [2, 0, 0, 0, 5, 0, 0],
-#               [0, 0, 6, 0, 0, 0, 4],
-#               [0, 0, 0, 0, 0, 0, 7],
-#               [0, 3, 0, 0, 4, 0, 0], ])
 
-BOARD 1
-
-m1=np.array([[0,0,0,3,0],
-                  [0,4,0,2,0],
-                  [0,4,2,0,2],
-                  [0,0,0,0,0],
-                  [0,0,3,3,2]])
-BOARD 2
-
-m1=np.array([[0,0,0,0,5],
-                  [2,0,3,0,0],
-                  [0,0,3,0,0],
-                  [0,0,0,0,3],
-                  [3,2,2,2,0]])
-BOARD 3
-m1=np.array([[2,0,0,3,0],
-                  [0,0,2,0,2],
-                  [0,2,2,4,0],
-                  [4,0,0,0,0],
-                  [0,0,0,4,0]])
-BOARD 4
-
-"""""
-m1=np.array([[6,6,0,0,0,0,0,0,0,0,0,0],
-                  [0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0],
-                  [0, 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 10],
-                  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                  [0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 12, 0],
-                  [0, 0, 0, 0, 0, 0, 16, 0, 0, 0, 14, 0],
-                  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                  [4, 4, 0, 0, 0, 0, 12, 0, 0, 0, 0, 0],
-                  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                  [0, 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0],
-                  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                  [2, 0, 0, 0, 0, 0, 9, 0, 3, 0, 0, 0]])
-
-
-x = Shikaku(m1)
+x = Shikaku(STATE[0])
 mem_usage_before = memory_profiler.memory_usage()[0]
 start_time = time.time()
 p, s = x.Astar()
@@ -223,6 +179,10 @@ print(p)
 print("Number of generated nodes:")
 print(s)
 
+root = tk.Tk()
+app = SolutionVisualizer(root, Astar_state)
+root.mainloop()
+"""
 def visualize_solution(solution):
     board = solution.matrix
     fig, ax = plt.subplots()
@@ -237,3 +197,4 @@ def visualize_solution(solution):
     plt.show()
 
 visualize_solution(p)
+"""

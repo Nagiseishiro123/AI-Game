@@ -4,11 +4,11 @@ import queue
 import time
 import matplotlib.pyplot as plt
 import memory_profiler
+from data import STATE
+import tkinter as tk
+from game import SolutionVisualizer
 
-# Shikaku Problem BRF :
-# Author: Anibal Picazo Quintana
-# Course: EARIN 18Z
-
+BrFS_state = []
 class state:
     def __init__(self, value, ind, matrix, piece):
         self.ind = ind
@@ -115,7 +115,8 @@ class Shikaku:
 
         while (not self.openList.empty() and goal == None):
             current = self.openList.get()
-            # print(current.matrix)
+            print(current.matrix)
+            BrFS_state.append(current)
             time.sleep(0)
             if (current.isSolution()):
                 goal = current
@@ -130,47 +131,7 @@ class Shikaku:
         return goal, nodes
 
 
-matrix2=np.array([[6,6,0,0,0,0,0,0,0,0,0,0],
-                  [0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0],
-                  [0, 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 10],
-                  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                  [0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 12, 0],
-                  [0, 0, 0, 0, 0, 0, 16, 0, 0, 0, 14, 0],
-                  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                  [4, 4, 0, 0, 0, 0, 12, 0, 0, 0, 0, 0],
-                  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                  [0, 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0],
-                  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                  [2, 0, 0, 0, 0, 0, 9, 0, 3, 0, 0, 0]])
-
-#matrix=np.array([ [0, 6, 0, 0, 0, 3, 0],
- #       [0, 0, 0, 0, 0, 2, 0],
-  #      [0, 2, 0, 3, 0, 2, 0],
-   #     [2, 0, 0, 0, 5, 0, 0],
-    #    [0, 0, 6, 0, 0, 0, 4],
-     #   [0, 0, 0, 0, 0, 0, 7],
-      #  [0, 3, 0, 0, 4, 0, 0],])
-
-#matrix2=np.array([[0,0,0,3,0],
-#                  [0,4,0,2,0],
-#                  [0,4,2,0,2],
-#                  [0,0,0,0,0],
-#                  [0,0,3,3,2]])
-#matrix2=np.array([[0,0,0,0,5],
-#                  [2,0,3,0,0],
-#                  [0,0,3,0,0],
-#                  [0,0,0,0,3],
-#                  [3,2,2,2,0]])
-
-#matrix2=np.array([[2,0,0,3,0],
-#                  [0,0,2,0,2],
-#                  [0,2,2,4,0],
-#                  [4,0,0,0,0],
-#                  [0,0,0,4,0]])
-#matrix2 = np.array([[0, 0, 0, 0, 2], [2, 2, 2, 0, 2], [0, 0, 3, 0, 2], [3, 3, 0, 0, 0], [0, 4, 0, 0, 0]])
-
-
-x=Shikaku(matrix2)
+x=Shikaku(STATE[0])
 start_time = time.time()
 mem_usage_before = memory_profiler.memory_usage()[0]
 p,s=x.breadthFirst()
@@ -184,6 +145,11 @@ print(f"Memory usage: {mem_usage} MB")
 print("Completed board: ",p)
 print("Visited Nodes: ",s)
 
+
+root = tk.Tk()
+app = SolutionVisualizer(root, BrFS_state)
+root.mainloop()
+""""
 def visualize_solution(solution):
     board = solution.matrix
     fig, ax = plt.subplots()
@@ -198,4 +164,4 @@ def visualize_solution(solution):
     plt.show()
 
 visualize_solution(p)
-
+"""
