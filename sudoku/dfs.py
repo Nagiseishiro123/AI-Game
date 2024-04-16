@@ -32,3 +32,4 @@ def solve_dfs(board):
         print ("No possible solutions")
 
     print ("Elapsed time: " + str(elapsed_time))
+    return solution

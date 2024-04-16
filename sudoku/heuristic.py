@@ -1,11 +1,12 @@
 import math
 import random
+import time
 
 
 class Heuristic(object):
     def __init__(self, initial_state: list):
         # number of rows = number of columns = N
-        random.seed(0)
+        random.seed(time.time())
         self.board = initial_state
         self.N = len(initial_state)
         if len(initial_state[0]) != self.N:

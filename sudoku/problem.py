@@ -8,7 +8,6 @@ class Problem(object):
         self.height = int(self.type/3) 
 
     def goal_test(self, state) -> bool:
-        """Return a list of value that have been used on quadrant"""
         total = sum(range(1, self.type+1))
 
         # Check rows and columns and return false if total is invalid
@@ -44,7 +43,7 @@ class Problem(object):
 
     
     def get_spot(self, state) -> int:
-        """Return first empty state (marked with 0)"""
+        """Return first empty cell (marked with 0)"""
         for row in range(self.type):
             for column in range(self.type):
                 if state[row][column] == 0:
