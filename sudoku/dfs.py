@@ -3,7 +3,7 @@ from typing import Tuple
 
 from problem import *
 
-
+DFS_state = []
 class DFSAct(Problem):
     def __init__(self, initial):
         super().__init__(initial)
@@ -77,6 +77,7 @@ def dfs(problem: DFSAct):
 
     while stack:
         node = stack.pop()
+        DFS_state.append(node)
         if problem.goal_test(node.state):
             return node.state
         stack.extend(node.expand(problem))  # Add viable states onto the stack
@@ -95,6 +96,10 @@ def solve_dfs(board):
         print("Found solution")
         for row in solution:
             print(row)
+        root = tk.Tk()
+        app = SolutionVisualizer(root, DFS_state)
+        root.title("DFS Solver")
+        root.mainloop()
     else:
         print("No possible solutions")
 

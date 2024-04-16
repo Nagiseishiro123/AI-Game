@@ -1,6 +1,8 @@
 import dfs
-from heuristic import Heuristic
+from heuristic import Heuristic, Heuristic_state
 import  time
+import tkinter as tk
+from problem import *
 
 board = [
       [0,0,0,8,4,0,6,5,0],
@@ -31,3 +33,8 @@ for i in range(9):
                   break
 
 print("Success")
+
+root = tk.Tk()
+app = SolutionVisualizerHillClimbing(root, Heuristic_state)
+root.title("Heuristic Solver")
+root.mainloop()

@@ -1,8 +1,8 @@
 import math
 import random
 import time
-
-
+from problem import *
+Heuristic_state = []
 class Heuristic(object):
     def __init__(self, initial_state: list):
         # number of rows = number of columns = N
@@ -74,6 +74,11 @@ class Heuristic(object):
         self.fill_board()
         non_fixed_blocks = self.arg_non_fixed_cell()
         cost = self.calc_cost()
+        iteration = 0
+        print("Initial board:")
+        self.print_board()
+        print("Initial cost:", cost) 
+
         while cost > 0:
             closer_goal = False
             for block in non_fixed_blocks:
@@ -102,5 +107,14 @@ class Heuristic(object):
                 self.board[pos1[0]][pos1[1]], self.board[pos2[0]][pos2[1]] = self.board[pos2[0]][pos2[1]], self.board[pos1[0]][pos1[1]]
                 cost_after = self.row_cost(pos1[0]) + self.col_cost(pos1[1]) + self.row_cost(pos2[0]) + self.col_cost(pos2[1])
                 cost = cost - cost_before + cost_after
+            iteration += 1
+            #print(f"Iteration {iteration}:")
+            #self.print_board()
+            Heuristic_state.append(copy.deepcopy(self.board))
+            #print("Cost:", cost)
 
         return self.board
+    
+    def print_board(self):
+     for row in self.board:
+        print(row)
